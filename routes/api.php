@@ -30,6 +30,11 @@ Route::prefix('v1')->as('v1')->group(function () {
     });
 
     Route::middleware('auth:sanctum')->group(function () {
-        
+        Route::prefix('chat')->as('chat.')->group(function () {
+            Route::controller(ChatController::class)->group(function () {
+                Route::get('/', 'index');
+                // Route::post('/orders', 'store');
+            });
+        });
     });
 });

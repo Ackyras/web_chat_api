@@ -9,7 +9,7 @@ class ChatService
 {
     public function sendMessage(ChatRoom $chatRoom, array $validated)
     {
-        if (!isset($validated['text'])) {
+        if ($this->isTextIsEmpty($validated)) {
             return $this->nullChat();
         }
         return $this->storeChat($chatRoom, $validated);
@@ -27,5 +27,10 @@ class ChatService
     public function nullChat()
     {
         return null;
+    }
+
+    public function isTextIsEmpty(array $validated)
+    {
+        return !isset($validated['text']);
     }
 }

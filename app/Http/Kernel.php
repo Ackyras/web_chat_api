@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\ActiveUserMiddleware;
+use App\Http\Middleware\UpdateLastOpenedChatRoomMiddleware;
 use App\Http\Middleware\UserIsChatRoomMemberMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isUserMemberOfChatRoom'    =>  UserIsChatRoomMemberMiddleware::class,
+        'chatRoomIsOpened'          =>  UpdateLastOpenedChatRoomMiddleware::class,
     ];
 }

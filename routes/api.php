@@ -46,7 +46,7 @@ Route::prefix('v1')->as('v1')->group(function () {
                 Route::post('{user}', 'send')->name('send');
             });
 
-            Route::middleware(['isUserMemberOfChatRoom'])->controller(ChatRoomController::class)->prefix('room')->as('room.')->group(function () {
+            Route::middleware(['isUserMemberOfChatRoom', 'chatRoomIsOpened'])->controller(ChatRoomController::class)->prefix('room')->as('room.')->group(function () {
 
                 Route::get('/{chatRoom}', 'index')->name('index')->missing(function () {
                     return response()->json(

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(ChatRoom::class)->constrained();
-            $table->date('last_opened')->nullable();
+            $table->timestamp('last_opened')->default(now());
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\ChatRoom\ChatRoomResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -15,10 +16,15 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'        =>  $this->id,
-            'name'      =>  $this->name,
-            'email'     =>  $this->email,
-            'last_seen' =>  $this->last_seen,
+            'id'                            =>  $this->id,
+            'name'                          =>  $this->name,
+            'email'                         =>  $this->email,
+            'last_seen'                     =>  $this->last_seen,
+            'direct_message_room'           => $this->when(
+                isset($this->directMessage),
+                new ChatRoomResource($this->directMessage)
+            )
+            //  new ChatRoomResource($this->whenNotNull($this->directMessage, null))
         ];
     }
 }

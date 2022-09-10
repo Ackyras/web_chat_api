@@ -31,11 +31,22 @@ Route::prefix('v1')->as('v1')->group(function () {
     });
 
     Route::middleware('auth:sanctum')->group(function () {
+
         Route::prefix('chat')->as('chat.')->group(function () {
+
             Route::controller(ChatController::class)->group(function () {
+
                 Route::get('/', 'index')->name('index');
+
+                Route::prefix('user')->as('user.')->group(function () {
+
+                    Route::get('',  'user')->name('index');
+                    Route::get('{user}', 'sendToUser')->name('send');
+                });
             });
+
             Route::middleware(['isUserMemberOfChatRoom'])->controller(ChatRoomController::class)->prefix('room')->as('room.')->group(function () {
+
                 Route::get('/{chatRoom}', 'index')->name('index')->missing(function () {
                     return response()->json(
                         [

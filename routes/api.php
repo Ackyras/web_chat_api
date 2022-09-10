@@ -51,7 +51,7 @@ Route::prefix('v1')->as('v1')->group(function () {
                 Route::get('/{chatRoom}', 'index')->name('index')->missing(function () {
                     return response()->json(
                         [
-                            'msg'   =>  'You have never started a conversation in this room',
+                            'msg'   =>  'Chat Room Not Found',
                         ],
                         404
                     );

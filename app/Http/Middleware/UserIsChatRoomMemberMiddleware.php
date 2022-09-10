@@ -18,8 +18,13 @@ class UserIsChatRoomMemberMiddleware
     public function handle(Request $request, Closure $next)
     {
         $chatRoom = $request->route('chatRoom');
-        $chatRoom->load('type');
-        if ($chatRoom->type->name == 'Group' && !$chatRoom->users()->exists(auth()->id())) {
+        $chatRoom->load(
+            [
+                'type',
+                'users'
+            ]
+        );
+        if (!$chatRoom->users->where('id', auth()->id())->first()) {
             return response()->json(
                 [
                     'msg'   =>  'You are not the member of this chat room'

@@ -19,12 +19,25 @@ class ChatRoomSeeder extends Seeder
     {
         //
         $user = User::find(1);
-        $chatRooms = ChatRoom::factory(3)
+        $chatRooms = ChatRoom::factory(5)
             ->groupType()
             ->hasAttached($user)
             ->create();
         foreach ($chatRooms as $chatRoom) {
-            $users = User::inRandomOrder()->limit(rand(2, 5))->get();
+            $users = User::where('id', '!=', $user->id)->inRandomOrder()->limit(rand(2, 5))->get();
+            $chatRoom->users()->attach($users);
+            for ($i = 0; $i < rand(15, 20); $i++) {
+                # code...
+                $chats = Chat::factory()
+                    ->groupChat($chatRoom, $users->random())
+                    ->create();
+            }
+        }
+        $chatRooms = ChatRoom::factory(5)
+            ->groupType()
+            ->create();
+        foreach ($chatRooms as $chatRoom) {
+            $users = User::where('id', '!=', $user->id)->inRandomOrder()->limit(rand(2, 5))->get();
             $chatRoom->users()->attach($users);
             for ($i = 0; $i < rand(15, 20); $i++) {
                 # code...

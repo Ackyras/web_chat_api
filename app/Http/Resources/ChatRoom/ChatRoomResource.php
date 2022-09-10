@@ -19,9 +19,10 @@ class ChatRoomResource extends JsonResource
             'id'                =>  $this->id,
             'name'              =>  $this->name,
             'type'              =>  $this->type->name,
-            'unread_count'      =>  $this->unread_chats,
-            'member_count'      =>  $this->users_count,
+            'unread_count'      =>  $this->when(isset($this->unread_chats), $this->unread_chats),
+            'member_count'      =>  $this->when(isset($this->users_count), $this->users_count),
             'chats'             =>  ChatResource::collection($this->whenLoaded('chats')),
+            'last_chat'         =>  $this->when(isset($this->lastChat), new ChatResource($this->lastChat))
         ];
     }
 }

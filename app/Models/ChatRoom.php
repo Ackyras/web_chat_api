@@ -14,9 +14,13 @@ class ChatRoom extends Model
         'chat_room_type_id',
     ];
 
+    protected $with = [
+        'type'
+    ];
+
     public function type()
     {
-        return $this->belongsTo(ChatRoomType::class);
+        return $this->belongsTo(ChatRoomType::class, 'chat_room_type_id');
     }
 
     public function users()

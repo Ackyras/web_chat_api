@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Chat\ChatController;
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Chat\ChatRoomController;
+use App\Http\Controllers\API\Chat\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,12 +38,12 @@ Route::prefix('v1')->as('v1')->group(function () {
             Route::controller(ChatController::class)->group(function () {
 
                 Route::get('/', 'index')->name('index');
+            });
+            Route::controller(UserController::class)->prefix('user')->as('user.')->group(function () {
 
-                Route::prefix('user')->as('user.')->group(function () {
-
-                    Route::get('',  'user')->name('index');
-                    Route::get('{user}', 'sendToUser')->name('send');
-                });
+                Route::get('',  'list')->name('index');
+                Route::get('{user}', 'show')->name('show');
+                Route::post('{user}', 'send')->name('send');
             });
 
             Route::middleware(['isUserMemberOfChatRoom'])->controller(ChatRoomController::class)->prefix('room')->as('room.')->group(function () {

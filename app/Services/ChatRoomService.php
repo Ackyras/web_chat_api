@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Chat;
 use App\Models\User;
 use App\Models\ChatRoom;
+use App\Models\ChatRoomUser;
 
 class ChatRoomService
 {
@@ -19,6 +20,7 @@ class ChatRoomService
     {
         $chatRooms = $this->getListOfChatRoom();
         $chatRooms = $this->loadLastChatOfChatRoom($chatRooms);
+        $chatRooms = $this->loadUnreadChats($chatRooms);
         return $chatRooms;
     }
 
@@ -70,15 +72,27 @@ class ChatRoomService
                             ->limit(1);
                     }
                 ]
-            )->loadCount(
-                [
-                    'chats as unread_chats' =>  function ($query) {
-                        $query->where('created_at', '>=', 'chat_room_user.last_opened');
-                    }
-                ]
             );
             $chatRoom->lastChat = $chatRoom->chats[0];
             $chatRoom->unsetRelation('chats');
+        });
+        return $chatRooms;
+    }
+
+    public function loadUnreadChats($chatRooms)
+    {
+        $chatRooms->map(function ($chatRoom) {
+            $chatRoomUser = ChatRoomUser::query()
+                ->where('chat_room_id', $chatRoom->id)
+                ->where('user_id', auth()->id())
+                ->first();
+            $chatRoom->loadCount(
+                [
+                    'chats as unread_chats' =>  function ($query) use ($chatRoomUser) {
+                        $query->where('created_at', '>=', $chatRoomUser->last_opened);
+                    }
+                ]
+            );
         });
         return $chatRooms;
     }

@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public function chatRooms()
     {
-        return $this->belongsToMany(ChatRoom::class);
+        return $this->belongsToMany(ChatRoom::class)->withPivot('last_opened');
     }
 
     public function chats()

@@ -22,7 +22,7 @@ class ChatRoomService
         return $chatRooms;
     }
 
-    public function createDirectMessage(User $user)
+    public function createDirectMessage(User $user): ChatRoom
     {
         $chatRoom = ChatRoom::create(
             [
@@ -30,6 +30,13 @@ class ChatRoomService
                 'chat_room_type_id'     =>  1
             ]
         );
+        $chatRoom->users()->attach(
+            [
+                auth()->id(),
+                $user->id,
+            ]
+        );
+        return $chatRoom;
     }
 
     public function getListOfChatRoom()

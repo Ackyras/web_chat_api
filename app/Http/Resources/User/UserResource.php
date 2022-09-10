@@ -21,10 +21,10 @@ class UserResource extends JsonResource
             'email'                         =>  $this->email,
             'last_seen'                     =>  $this->last_seen,
             'direct_message_room'           => $this->when(
-                isset($this->directMessage),
-                new ChatRoomResource($this->directMessage)
+                $this->directMessage != null,
+                new ChatRoomResource($this->directMessage),
+                null
             )
-            //  new ChatRoomResource($this->whenNotNull($this->directMessage, null))
         ];
     }
 }

@@ -20,6 +20,7 @@ class UpdateLastOpenedChatRoomMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        $response = $next($request);
         if (auth()->check()) {
             $chatRoom = $request->route('chatRoom');
             $expiresAt = Carbon::now()->addMinute(1);
@@ -32,6 +33,6 @@ class UpdateLastOpenedChatRoomMiddleware
                 ]
             );
         }
-        return $next($request);
+        return $response;
     }
 }

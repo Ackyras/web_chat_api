@@ -6,6 +6,7 @@ use App\Models\Chat;
 use App\Models\User;
 use App\Models\ChatRoom;
 use App\Models\ChatRoomUser;
+use Illuminate\Database\Eloquent\Collection;
 
 class ChatRoomService
 {
@@ -13,6 +14,7 @@ class ChatRoomService
     {
         $chatRoom = $this->loadChatRoomListOfChat($chatRoom);
         $chatRoom = $this->loadChatRoomMemberCount($chatRoom);
+        $chatRoom = $this->loadUnreadChat($chatRoom);
         return $chatRoom;
     }
 
@@ -79,22 +81,28 @@ class ChatRoomService
         return $chatRooms;
     }
 
-    public function loadUnreadChats($chatRooms)
+    public function loadUnreadChats(Collection $chatRooms)
     {
         $chatRooms->map(function ($chatRoom) {
-            $chatRoomUser = ChatRoomUser::query()
-                ->where('chat_room_id', $chatRoom->id)
-                ->where('user_id', auth()->id())
-                ->first();
-            $chatRoom->loadCount(
-                [
-                    'chats as unread_chats' =>  function ($query) use ($chatRoomUser) {
-                        $query->where('created_at', '>=', $chatRoomUser->last_opened);
-                    }
-                ]
-            );
+            $chatRoom = $this->loadUnreadChat($chatRoom);
         });
         return $chatRooms;
+    }
+
+    public function loadUnreadChat($chatRoom)
+    {
+        $chatRoomUser = ChatRoomUser::query()
+            ->where('chat_room_id', $chatRoom->id)
+            ->where('user_id', auth()->id())
+            ->first();
+        $chatRoom->loadCount(
+            [
+                'chats as unread_chats' =>  function ($query) use ($chatRoomUser) {
+                    $query->where('created_at', '>=', $chatRoomUser->last_opened);
+                }
+            ]
+        );
+        return $chatRoom;
     }
 
     public function loadChatRoomListOfChat(ChatRoom $chatRoom)

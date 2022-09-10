@@ -46,18 +46,21 @@ Route::prefix('v1')->as('v1')->group(function () {
                 Route::post('{user}', 'send')->name('send');
             });
 
-            Route::middleware(['isUserMemberOfChatRoom', 'chatRoomIsOpened'])->controller(ChatRoomController::class)->prefix('room')->as('room.')->group(function () {
-
-                Route::get('/{chatRoom}', 'index')->name('index')->missing(function () {
-                    return response()->json(
-                        [
-                            'msg'   =>  'Chat Room Not Found',
-                        ],
-                        404
-                    );
+            Route::middleware(['isUserMemberOfChatRoom', 'chatRoomIsOpened'])
+                ->controller(ChatRoomController::class)
+                ->prefix('room')
+                ->as('room.')
+                ->group(function () {
+                    Route::get('/{chatRoom}', 'index')->name('index')->missing(function () {
+                        return response()->json(
+                            [
+                                'msg'   =>  'Chat Room Not Found',
+                            ],
+                            404
+                        );
+                    });
+                    Route::post('/{chatRoom}', 'send')->name('send');
                 });
-                Route::post('/{chatRoom}', 'send')->name('send');
-            });
         });
     });
 });

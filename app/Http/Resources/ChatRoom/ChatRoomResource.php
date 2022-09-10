@@ -17,7 +17,11 @@ class ChatRoomResource extends JsonResource
     {
         return [
             'id'                =>  $this->id,
-            'name'              =>  $this->name,
+            'name'              =>  $this->when(
+                $this->type->id == 2,
+                $this->name,
+                $this->users()->where('chat_room_user.user_id', '!=', auth()->id())->first()->name . '(DM)'
+            ),
             'type'              =>  $this->type->name,
             'unread_count'      =>  $this->when(isset($this->unread_chats), $this->unread_chats),
             'member_count'      =>  $this->when(isset($this->users_count), $this->users_count),

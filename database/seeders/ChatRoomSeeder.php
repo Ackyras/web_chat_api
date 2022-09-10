@@ -24,7 +24,7 @@ class ChatRoomSeeder extends Seeder
             ->hasAttached($user)
             ->create();
         foreach ($chatRooms as $chatRoom) {
-            $users = User::where('id', '!=', $user->id)->inRandomOrder()->limit(rand(2, 5))->get();
+            $users = User::where('id', '!=', $user->id)->where('id', '!=', 2)->inRandomOrder()->limit(rand(2, 5))->get();
             $chatRoom->users()->attach($users);
             for ($i = 0; $i < rand(15, 20); $i++) {
                 # code...
@@ -37,7 +37,7 @@ class ChatRoomSeeder extends Seeder
             ->groupType()
             ->create();
         foreach ($chatRooms as $chatRoom) {
-            $users = User::where('id', '!=', $user->id)->inRandomOrder()->limit(rand(2, 5))->get();
+            $users = User::where('id', '!=', $user->id)->where('id', '!=', 2)->inRandomOrder()->limit(rand(2, 5))->get();
             $chatRoom->users()->attach($users);
             for ($i = 0; $i < rand(15, 20); $i++) {
                 # code...

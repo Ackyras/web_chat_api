@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Models\Chat;
+use App\Models\User;
 use App\Models\ChatRoom;
 
-class GroupChatService
+class ChatRoomService
 {
     public function index(ChatRoom $chatRoom)
     {
@@ -19,6 +20,16 @@ class GroupChatService
         $chatRooms = $this->getListOfChatRoom();
         $chatRooms = $this->loadLastChatOfChatRoom($chatRooms);
         return $chatRooms;
+    }
+
+    public function createDirectMessage(User $user)
+    {
+        $chatRoom = ChatRoom::create(
+            [
+                'name'                  =>  'Direct Message',
+                'chat_room_type_id'     =>  1
+            ]
+        );
     }
 
     public function getListOfChatRoom()

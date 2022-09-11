@@ -1,64 +1,65 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Rakamin-Assessment
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+## Requirements and Dependecies
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. PHP >8.0.2
+2. Laravel v9.19
+3. Composer 2.3.5
+4. MySQL(DB engine can be changed later on into one of these 5 options: MariaDB 10.3+, MySQL 5.7+, PostgreSQL 10.0+, SQLite 3.8.8+, SQL Server 2017+)
+5. Laravel/Sanctum
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clone this repository (URL HTTPS : https://github.com/Ackyras/web_chat_api.git ; SSH : git@github.com:Ackyras/web_chat_api.git)
+2. Run `composer install` command in your terminal to install all the required dependencies
+3. Run `cp .env.example .env` command in your terminal to create **.env** file for setting up the environment
+4. Create 2 new database with laravel supported DB engine (MariaDB 10.3+, MySQL 5.7+, PostgreSQL 10.0+, SQLite 3.8.8+, SQL Server 2017+). 1 is used for main application, and latter for testing purpose.
+5. Open **.env** and change the database configuration(it's marked with the initials **"DB\_"** ) to match the database configuration you have.
+6. Open **.env.testing** and change the database configuration(it's marked with the initials **"DB\_"** ) to match the database configuration you have.
+7. Run `php artisan migrate --seed` command in your terminal to migrate the database table and create dummy data.
+8. Run `php artisan key:generate` command in your terminal to create new application key.
+9. Run `php artisan serve` command in your terminal to run the application. (you can use account from table user, all of the password is "password". ex: email : user@user, password : password);
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Endpoint
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+You can see all of the endpoint available by open url `/request-docs` from this app. You can see all endpoints there, but the only endpoints used are those that have the `api/v1` . prefix. You can filter it in Top-Left-Corner Box.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Authentication
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+This app uses Laravel/Sanctum help for authentication, which uses bearer token as authentication key.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Testing
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Testing for this application is made with PHP unit testing which is in the default laravel application. The TestCase data used is created with the help of seeders, and is stored in a configurable testing database in .env.testing. So make sure you have configured the database for testing in **.env.testing** file.
+Testing is made according to the UserStories in the work documentation([dropbox](https://www.dropbox.com/scl/fi/zqd7up1r67n47ursck8ip/Simple-Chat-API.paper?dl=0&rlkey=npv4sm71g0rcjmdazlspbjjni))
+You can run test by running `php artisan test` in your terminal.
+
+---
+
+## Closing
+
+---
+
+Saya mengucapkan terimakasih kepada tim HRD Rakamin Academy atas kesempatan berharga yang telah diberikan untuk mengikuti penilaian melamar kerja di Rakamin Academy.
+
+In working on this mini project, of course there are still many shortcomings in the implementation and can be solved even better. However, I still hope that the HRD team of Rakamin Academy can give me the opportunity to be able to develop my skills by working with other development teams and together advancing Rakamin Academy.

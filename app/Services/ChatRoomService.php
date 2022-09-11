@@ -48,6 +48,13 @@ class ChatRoomService
         $user = auth()->id();
         $chatRooms = ChatRoom::query()
             ->whereRelation('users', 'users.id', $user)
+            ->with(
+                [
+                    'users' =>  function ($query) use ($user) {
+                        $query->where('users.id', '!=', $user);
+                    }
+                ]
+            )
             ->withCount(
                 [
                     'users'

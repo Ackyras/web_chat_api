@@ -35,6 +35,7 @@
 ---
 
 You can see all of the endpoint available by open url `/request-docs` from this app. You can see all endpoints there, but the only endpoints used are those that have the `api/v1` . prefix. You can filter it in Top-Left-Corner Box.
+I also provide a postman collection which you can find in the `docs/` . directory
 
 ---
 

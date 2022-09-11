@@ -22,8 +22,7 @@ class UserResource extends JsonResource
             'last_seen'                     =>  $this->last_seen,
             'direct_message_room'           => $this->when(
                 $this->directMessage != null,
-                new ChatRoomResource($this->directMessage),
-                null
+                new ChatRoomResource($this->directMessage)
             )
         ];
     }

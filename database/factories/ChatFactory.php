@@ -20,7 +20,7 @@ class ChatFactory extends Factory
     {
         return [
             //
-            'text'  =>  $this->faker->sentences(rand(1, 4), true)
+            'text'  =>  $this->faker->sentences(rand(1, 3), true)
         ];
     }
 

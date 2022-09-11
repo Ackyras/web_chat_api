@@ -30,4 +30,15 @@ class ChatRoomFactory extends Factory
             ];
         });
     }
+
+    public function directMessageType()
+    {
+        return $this->state(
+            function (array $attributes) {
+                return [
+                    'chat_room_type_id' =>  1,
+                ];
+            }
+        );
+    }
 }

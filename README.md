@@ -60,6 +60,6 @@ You can run test by running `php artisan test` in your terminal.
 
 ---
 
-Saya mengucapkan terimakasih kepada tim HRD Rakamin Academy atas kesempatan berharga yang telah diberikan untuk mengikuti penilaian melamar kerja di Rakamin Academy.
+I would like to thank the Rakamin Academy HRD team for the valuable opportunity that has been given to take part in the assessment of applying for work at Rakamin Academy by working on this mini project.
 
 In working on this mini project, of course there are still many shortcomings in the implementation and can be solved even better. However, I still hope that the HRD team of Rakamin Academy can give me the opportunity to be able to develop my skills by working with other development teams and together advancing Rakamin Academy.
